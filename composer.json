@@ -1,0 +1,72 @@
+{
+  "name": "brianhenryie/php-codecoverage-markdown",
+  "description": "Generate markdown coverage reports from PHPUnit code coverage data for GitHub PR comments",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "BrianHenryIE",
+      "email": "BrianHenryIE@gmail.com"
+    }
+  ],
+  "keywords": ["code-coverage", "phpunit", "markdown", "github-actions", "testing"],
+  "bin": [
+    "bin/php-codecoverage-markdown"
+  ],
+  "autoload":{
+    "psr-4": {
+      "BrianHenryIE\\CodeCoverageMarkdown\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "BrianHenryIE\\CodeCoverageMarkdown\\Tests\\": "tests"
+    }
+  },
+  "require": {
+    "php": ">=8.1",
+    "phpunit/php-code-coverage": "^10.1.16|^11.0.12|^12.5.2|*",
+    "phpunit/php-text-template": "^3.0|^4.0|*",
+    "symfony/console": "^6.5.30|^7.4.1|^8.0.1|*"
+  },
+  "require-dev": {
+    "mockery/mockery": "*",
+    "phpstan/phpstan": "*",
+    "phpunit/phpunit": "^10.5.60|^11.5.46|^12.5.4|*",
+    "squizlabs/php_codesniffer": "*"
+  },
+  "scripts": {
+    "analyze": [
+      "phpstan analyse --memory-limit=-1 --verbose"
+    ],
+    "cs-fix": [
+      "phpcbf || true",
+      "@cs"
+    ],
+    "cs": [
+      "phpcs || true",
+      "@analyze"
+    ],
+    "test": [
+      "phpunit"
+    ],
+    "test-coverage": [
+      "Composer\\Config::disableProcessTimeout",
+      "if [ \"$XDEBUG_MODE\" != \"coverage\" ]; then echo \"Run with 'XDEBUG_MODE=coverage composer test-coverage'\"; exit 1; fi;",
+      "phpunit --coverage-text --coverage-html tests/_reports/html --coverage-clover tests/_reports/clover.xml --coverage-php tests/_reports/php.cov -d memory_limit=-1"
+    ]
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    },
+    "sort-packages": true,
+    "platform": {
+      "php": "8.1"
+    }
+  },
+  "scripts-descriptions": {
+    "test": "Run PHPUnit tests",
+    "test-coverage": "Run PHPUnit tests with coverage. Use 'XDEBUG_MODE=coverage composer test-coverage' to run"
+  }
+}

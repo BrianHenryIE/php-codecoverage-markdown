@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+<?php
+
+include $_composer_autoload_path ?? __DIR__ . '/../vendor/autoload.php';
+
+use BrianHenryIE\CodeCoverageMarkdown\MarkdownReportCommand;
+use Symfony\Component\Console\Application;
+
+$application = new Application(name: 'php-codecoverage-markdown', version: '1.0.0');
+
+$application->add(new MarkdownReportCommand());
+$application->setDefaultCommand('generate', true);
+
+$application->run();
