@@ -3,6 +3,7 @@
 namespace BrianHenryIE\CodeCoverageMarkdown;
 
 use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Driver\Driver;
 
 class CoverageFilterTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
 {
@@ -153,6 +154,8 @@ class CoverageFilterTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
         if (!$this->isXdebugCoverageEnabled()) {
             $this->markTestSkipped('Xdebug coverage mode is not enabled');
         }
+
+        NullDriver::maybeSetCoverageDriver($coverage);
 
         $hasBranchCoverage = $coverage->collectsBranchAndPathCoverage();
 
