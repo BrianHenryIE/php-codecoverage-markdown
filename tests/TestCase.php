@@ -7,7 +7,7 @@ use SebastianBergmann\CodeCoverage\CodeCoverage;
 class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @return array{coverage:CodeCoverage}
+     * @return array<int,array{coverage:CodeCoverage}>
      */
     public static function coverageDataProvider(): array
     {
