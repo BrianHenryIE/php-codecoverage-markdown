@@ -12,8 +12,10 @@ declare(strict_types=1);
 
 namespace BrianHenryIE\CodeCoverageMarkdown;
 
+use ReflectionProperty;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report\Thresholds;
+use Throwable;
 
 class MarkdownReport
 {
@@ -56,6 +58,8 @@ class MarkdownReport
 
         $date   = date('D, M j, Y, G:i:s T');
 
+        $this->maybeSetMockCoverageDriver($coverage);
+
         $directory = new Directory(
             $projectRoot,
             $baseUrl,
@@ -68,5 +72,27 @@ class MarkdownReport
         );
 
         return $directory->render($report);
+    }
+
+    /**
+     * The deserialized php-code-coverage 12 .cov does not have a Driver set.
+     *
+     * We will use reflection and try to `getValue()` which when it fails means we need to set a driver.
+     *
+     * @see CodeCoverage::$driver
+     */
+    protected function maybeSetMockCoverageDriver(CodeCoverage $coverage): void
+    {
+        $property = new ReflectionProperty(CodeCoverage::class, 'driver');
+        // `::setAccessible()` is no-op in PHP >8.1 and errors in PHP 8.5.
+        if (!version_compare(PHP_VERSION, '8.5', '>=')) {
+            $property->setAccessible(true);
+        }
+        try {
+            $property->getValue($coverage); // @phpstan-ignore method.resultUnused
+        } catch (Throwable $t) {
+            $nullDriver = new NullDriver();
+            $property->setValue($coverage, $nullDriver);
+        }
     }
 }
