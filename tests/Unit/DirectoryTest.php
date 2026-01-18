@@ -21,7 +21,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testConstructor(CodeCoverage $coverage): void
+    public function testConstructor(string $filePath, CodeCoverage $coverage): void
     {
         $report = $coverage->getReport();
         $basePath = $report->pathAsString() . '/';
@@ -33,7 +33,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -43,7 +43,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testRenderReturnsString(CodeCoverage $coverage): void
+    public function testRenderReturnsString(string $filePath, CodeCoverage $coverage): void
     {
         $report = $coverage->getReport();
         $basePath = $report->pathAsString() . '/';
@@ -55,7 +55,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -68,7 +68,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testRenderContainsMarkdownTable(CodeCoverage $coverage): void
+    public function testRenderContainsMarkdownTable(string $filePath, CodeCoverage $coverage): void
     {
         $report = $coverage->getReport();
         $basePath = $report->pathAsString() . '/';
@@ -80,7 +80,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -93,7 +93,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testRenderContainsTotalRow(CodeCoverage $coverage): void
+    public function testRenderContainsTotalRow(string $filePath, CodeCoverage $coverage): void
     {
         $report = $coverage->getReport();
         $basePath = $report->pathAsString() . '/';
@@ -105,7 +105,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -117,7 +117,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testRenderWithBaseUrl(CodeCoverage $coverage): void
+    public function testRenderWithBaseUrl(string $filePath, CodeCoverage $coverage): void
     {
         $report = $coverage->getReport();
         $basePath = $report->pathAsString() . '/';
@@ -130,7 +130,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -144,7 +144,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testRenderWithoutBaseUrl(CodeCoverage $coverage): void
+    public function testRenderWithoutBaseUrl(string $filePath, CodeCoverage $coverage): void
     {
         $report = $coverage->getReport();
         $basePath = $report->pathAsString() . '/';
@@ -156,7 +156,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -168,7 +168,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testRenderContainsCoveragePercentages(CodeCoverage $coverage): void
+    public function testRenderContainsCoveragePercentages(string $filePath, CodeCoverage $coverage): void
     {
         $report = $coverage->getReport();
         $basePath = $report->pathAsString() . '/';
@@ -180,7 +180,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -192,7 +192,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testRenderWithGenerator(CodeCoverage $coverage): void
+    public function testRenderWithGenerator(string $filePath, CodeCoverage $coverage): void
     {
         $report = $coverage->getReport();
         $basePath = $report->pathAsString() . '/';
@@ -204,7 +204,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -217,7 +217,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testRenderContainsDate(CodeCoverage $coverage): void
+    public function testRenderContainsDate(string $filePath, CodeCoverage $coverage): void
     {
         $report = $coverage->getReport();
         $basePath = $report->pathAsString() . '/';
@@ -230,7 +230,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             $date,
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -242,7 +242,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testCoverageBarWithFullCoverage(CodeCoverage $coverage): void
+    public function testCoverageBarWithFullCoverage(string $filePath, CodeCoverage $coverage): void
     {
         $report = $coverage->getReport();
         $basePath = $report->pathAsString() . '/';
@@ -254,7 +254,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -271,7 +271,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testCoverageBarWithNoCoverage(CodeCoverage $coverage): void
+    public function testCoverageBarWithNoCoverage(string $filePath, CodeCoverage $coverage): void
     {
         $report = $coverage->getReport();
         $basePath = $report->pathAsString() . '/';
@@ -283,7 +283,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -302,7 +302,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testCoverageBarWithPartialCoverage(CodeCoverage $coverage): void
+    public function testCoverageBarWithPartialCoverage(string $filePath, CodeCoverage $coverage): void
     {
         $report = $coverage->getReport();
         $basePath = $report->pathAsString() . '/';
@@ -314,7 +314,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 

@@ -2,8 +2,11 @@
 
 namespace BrianHenryIE\CodeCoverageMarkdown;
 
+use ReflectionProperty;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Data\RawCodeCoverageData;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
+use Throwable;
 
 class NullDriver extends Driver
 {
@@ -16,8 +19,8 @@ class NullDriver extends Driver
     {
     }
 
-    public function stop(): RawCodeCoverageData
+    public function stop(): RawCodeCoverageData // @phpstan-ignore class.notFound
     {
-        return RawCodeCoverageData::fromXdebugWithoutPathCoverage([]);
+        return RawCodeCoverageData::fromXdebugWithoutPathCoverage([]); // @phpstan-ignore class.notFound
     }
 }

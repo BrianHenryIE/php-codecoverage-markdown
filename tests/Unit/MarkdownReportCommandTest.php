@@ -2,13 +2,15 @@
 
 namespace BrianHenryIE\CodeCoverageMarkdown;
 
+use SebastianBergmann\CodeCoverage\CodeCoverage;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
+/**
+ * @coversDefaultClass MarkdownReportCommand
+ */
 class MarkdownReportCommandTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
 {
-    protected string $coverageFile;
-
     private function isXdebugCoverageEnabled(): bool
     {
         if (!extension_loaded('xdebug')) {
@@ -78,7 +80,10 @@ class MarkdownReportCommandTest extends \BrianHenryIE\CodeCoverageMarkdown\TestC
         $this->assertStringContainsString('Unable to read coverage file', $commandTester->getDisplay());
     }
 
-    public function testExecuteWithValidInputFileToStdout(): void
+    /**
+     * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
+     */
+    public function testExecuteWithValidInputFileToStdout(string $filePath, CodeCoverage $coverage): void
     {
         if (!$this->isXdebugCoverageEnabled()) {
             $this->markTestSkipped('Xdebug coverage mode is not enabled');
@@ -91,7 +96,7 @@ class MarkdownReportCommandTest extends \BrianHenryIE\CodeCoverageMarkdown\TestC
         $commandTester = new CommandTester($command);
 
         $commandTester->execute([
-            '--input-file' => $this->coverageFile,
+            '--input-file' => $filePath,
         ]);
 
         $this->assertEquals(0, $commandTester->getStatusCode());
@@ -101,7 +106,10 @@ class MarkdownReportCommandTest extends \BrianHenryIE\CodeCoverageMarkdown\TestC
         $this->assertStringContainsString('Total', $output);
     }
 
-    public function testExecuteWithOutputFile(): void
+    /**
+     * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
+     */
+    public function testExecuteWithOutputFile(string $filePath, CodeCoverage $coverage): void
     {
         if (!$this->isXdebugCoverageEnabled()) {
             $this->markTestSkipped('Xdebug coverage mode is not enabled');
@@ -117,7 +125,7 @@ class MarkdownReportCommandTest extends \BrianHenryIE\CodeCoverageMarkdown\TestC
 
         try {
             $commandTester->execute([
-                '--input-file' => $this->coverageFile,
+                '--input-file' => $filePath,
                 '--output-file' => $outputFile,
             ]);
 
@@ -136,7 +144,10 @@ class MarkdownReportCommandTest extends \BrianHenryIE\CodeCoverageMarkdown\TestC
         }
     }
 
-    public function testExecuteWithBaseUrl(): void
+    /**
+     * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
+     */
+    public function testExecuteWithBaseUrl(string $filePath, CodeCoverage $coverage): void
     {
         if (!$this->isXdebugCoverageEnabled()) {
             $this->markTestSkipped('Xdebug coverage mode is not enabled');
@@ -149,7 +160,7 @@ class MarkdownReportCommandTest extends \BrianHenryIE\CodeCoverageMarkdown\TestC
         $commandTester = new CommandTester($command);
 
         $commandTester->execute([
-            '--input-file' => $this->coverageFile,
+            '--input-file' => $filePath,
             '--base-url' => 'https://github.com/user/repo/blob/main/',
         ]);
 
@@ -159,7 +170,10 @@ class MarkdownReportCommandTest extends \BrianHenryIE\CodeCoverageMarkdown\TestC
         $this->assertStringContainsString('https://github.com', $output);
     }
 
-    public function testExecuteWithBaseUrlWithoutPlaceholder(): void
+    /**
+     * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
+     */
+    public function testExecuteWithBaseUrlWithoutPlaceholder(string $filePath, CodeCoverage $coverage): void
     {
         if (!$this->isXdebugCoverageEnabled()) {
             $this->markTestSkipped('Xdebug coverage mode is not enabled');
@@ -172,7 +186,7 @@ class MarkdownReportCommandTest extends \BrianHenryIE\CodeCoverageMarkdown\TestC
         $commandTester = new CommandTester($command);
 
         $commandTester->execute([
-            '--input-file' => $this->coverageFile,
+            '--input-file' => $filePath,
             '--base-url' => 'https://github.com/user/repo/blob/main',
         ]);
 
@@ -182,13 +196,16 @@ class MarkdownReportCommandTest extends \BrianHenryIE\CodeCoverageMarkdown\TestC
         $this->assertStringContainsString('https://github.com', $output);
     }
 
-    public function testExecuteWithCoveredFiles(): void
+    /**
+     * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
+     */
+    public function testExecuteWithCoveredFiles(string $filePath, CodeCoverage $coverage): void
     {
         if (!$this->isXdebugCoverageEnabled()) {
             $this->markTestSkipped('Xdebug coverage mode is not enabled');
         }
 
-        $coverage = include $this->coverageFile;
+        $coverage = include $filePath;
         $data = $coverage->getData();
         $lineCoverage = $data->lineCoverage();
         $allFiles = array_keys($lineCoverage);
@@ -206,20 +223,23 @@ class MarkdownReportCommandTest extends \BrianHenryIE\CodeCoverageMarkdown\TestC
         $commandTester = new CommandTester($command);
 
         $commandTester->execute([
-            '--input-file' => $this->coverageFile,
+            '--input-file' => $filePath,
             '--covered-files' => $firstFile,
         ]);
 
         $this->assertEquals(0, $commandTester->getStatusCode());
     }
 
-    public function testExecuteWithMultipleCoveredFiles(): void
+    /**
+     * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
+     */
+    public function testExecuteWithMultipleCoveredFiles(string $filePath, CodeCoverage $coverage): void
     {
         if (!$this->isXdebugCoverageEnabled()) {
             $this->markTestSkipped('Xdebug coverage mode is not enabled');
         }
 
-        $coverage = include $this->coverageFile;
+        $coverage = include $filePath;
         $data = $coverage->getData();
         $lineCoverage = $data->lineCoverage();
         $allFiles = array_keys($lineCoverage);
@@ -237,7 +257,7 @@ class MarkdownReportCommandTest extends \BrianHenryIE\CodeCoverageMarkdown\TestC
         $commandTester = new CommandTester($command);
 
         $commandTester->execute([
-            '--input-file' => $this->coverageFile,
+            '--input-file' => $filePath,
             '--covered-files' => $filesList,
         ]);
 
@@ -294,7 +314,10 @@ class MarkdownReportCommandTest extends \BrianHenryIE\CodeCoverageMarkdown\TestC
         }
     }
 
-    public function testExecuteWithShortOptions(): void
+    /**
+     * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
+     */
+    public function testExecuteWithShortOptions(string $filePath, CodeCoverage $coverage): void
     {
         if (!$this->isXdebugCoverageEnabled()) {
             $this->markTestSkipped('Xdebug coverage mode is not enabled');
@@ -307,7 +330,7 @@ class MarkdownReportCommandTest extends \BrianHenryIE\CodeCoverageMarkdown\TestC
         $commandTester = new CommandTester($command);
 
         $commandTester->execute([
-            '-i' => $this->coverageFile,
+            '-i' => $filePath,
         ]);
 
         $this->assertEquals(0, $commandTester->getStatusCode());

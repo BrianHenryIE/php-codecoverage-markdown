@@ -7,6 +7,7 @@
 namespace BrianHenryIE\CodeCoverageMarkdown;
 
 use SebastianBergmann\CodeCoverage\CodeCoverage;
+use SebastianBergmann\CodeCoverage\Driver\Xdebug3Driver;
 use SebastianBergmann\CodeCoverage\Driver\XdebugDriver;
 use SebastianBergmann\CodeCoverage\Filter;
 
@@ -53,17 +54,27 @@ class CoverageFilter
         // Would it be possible to edit the class with reflection instead?
         // This requires XDEBUG_MODE=coverage
         // In tests, XDEBUG_MODE=coverage,debug
-        $xdebugDriver = new XdebugDriver(
-            $filter
-        );
-        if ($oldCoverage->collectsBranchAndPathCoverage()) {
+        /** @var XdebugDriver|Xdebug3Driver $xdebugDriver */ // @phpstan-ignore class.notFound
+        $xdebugDriver = class_exists(XdebugDriver::class)
+            ? new XdebugDriver($filter)
+            : new Xdebug3Driver($filter);
+
+        // We may be losing information here.
+        SetNullDriver::maybeSetCoverageDriver($oldCoverage);
+
+        if (
+            $oldCoverage->collectsBranchAndPathCoverage()
+            && method_exists($xdebugDriver, 'enableBranchAndPathCoverage')
+        ) {
+            // @phpstan-ignore class.notFound
             $xdebugDriver->enableBranchAndPathCoverage();
-        } else {
+        } elseif (method_exists($xdebugDriver, 'disableBranchAndPathCoverage')) {
+            // @phpstan-ignore class.notFound
             $xdebugDriver->disableBranchAndPathCoverage();
         }
 
         $newCoverage = new CodeCoverage(
-            $xdebugDriver,
+            $xdebugDriver, // @phpstan-ignore argument.type
             $filter
         );
         unset($xdebugDriver, $filter);

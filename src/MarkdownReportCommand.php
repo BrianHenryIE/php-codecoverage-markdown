@@ -34,7 +34,7 @@ class MarkdownReportCommand extends Command
      */
     public function __construct(
         ?string $name = null,
-        ?MarkdownReport $markdownReport = null,
+        ?MarkdownReport $markdownReport = null
     ) {
         parent::__construct($name);
 
