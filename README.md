@@ -1,4 +1,4 @@
-[![PHP 8.1](https://img.shields.io/badge/PHP-8.1-8892BF.svg?logo=php)](https://php.net)
+[![PHP 7.4](https://img.shields.io/badge/PHP-8.1-8892BF.svg?logo=php)](https://php.net)
 
 > ⚠️ Tests pass locally but not in GitHub Actions. Please test and give feedback, don't assume this is working 100%.
 
@@ -6,7 +6,7 @@
 
 Generate Markdown coverage reports from PHPUnit code coverage data, perfect for GitHub PR comments.
 
-[![PHPUnit ](../php-codecoverage-markdown/.github/example-github-pr-comment.png)](https://github.com/BrianHenryIE/strauss/pull/139#issuecomment-2614192979)
+[![PHPUnit ](.github/example-github-pr-comment.png)](https://github.com/BrianHenryIE/strauss/pull/139#issuecomment-2614192979)
 
 ## Features
 
@@ -99,16 +99,22 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.2
+          php-version: ${{ matrix.php }}
           coverage: xdebug
 
       - name: Install dependencies
         run: composer install
 
       - name: Run tests with coverage
+        if: ${{ matrix.php == '8.1' }} # We only need the coverage data once
         run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-php coverage.cov
 
+      - name: Run tests without coverage
+        if: ${{ matrix.php != '8.1' }}
+        run: vendor/bin/phpunit
+
       - name: Get changed files
+        if: ${{ matrix.php == '8.1' }} # We only need it once
         id: changed-files
         uses: tj-actions/changed-files@v47
         with:
@@ -116,7 +122,7 @@ jobs:
           files: '**/**.php'
 
       - name: Generate markdown report
-        if: ${{ matrix.php == '8.1' }} # We only need it added once
+        if: ${{ matrix.php == '8.1' }} # We only need it once
         run: |
           vendor/bin/php-codecoverage-markdown \
             --input-file coverage.cov \
@@ -128,7 +134,7 @@ jobs:
         uses: mshick/add-pr-comment@v2
         if: ${{ matrix.php == '8.1' }} # We only need it added once
         with:
-          message-id: coverage-report
+          message-id: coverage-report # Causes it to update the same PR comment each time.
           message-path: coverage-report.md
         continue-on-error: true # When a PR is opened by a non-member, there are no write permissions (and no access to secrets), so this step will always fail.
 ```
@@ -144,7 +150,7 @@ jobs:
 
 ## Output Format
 
-The markdown report includes:
+The Markdown report includes:
 
 * Total coverage summary
 * Per-file coverage details with:
@@ -158,7 +164,7 @@ The markdown report includes:
 ## Requirements
 
 * PHP 8.1 or higher
-* [phpunit/php-code-coverage](https://github.com/sebastianbergmann/php-code-coverage):`^10|^11|^12`
+* Coverage file in PHP format from [phpunit/php-code-coverage](https://github.com/sebastianbergmann/php-code-coverage):`^9|^10|^11|^12`
 
 ## License
 
