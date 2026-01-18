@@ -12,14 +12,16 @@ class TestCase extends \PHPUnit\Framework\TestCase
      */
     public static function coverageDataProvider(): array
     {
-        $installedMajorVersion = preg_match(
+        $installedMajorVersionRegex = preg_match(
             '/v?(\d+)/',
             InstalledVersions::getVersion('phpunit/php-code-coverage'),
-            $output_array
+            $installedMajorVersionOutputArray
         );
-        if (!$installedMajorVersion) {
+        if (!$installedMajorVersionRegex) {
             return [];
         }
+
+        $installedMajorVersion = $installedMajorVersionOutputArray[1];
 
         $fixtures = [
             9 => [
@@ -37,7 +39,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
         ];
 
 
-        if ($installedMajorVersion == 9) {
+        if ($installedMajorVersionRegex == 9) {
             return [
                 9 => $fixtures[9]
             ];
