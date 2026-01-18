@@ -41,6 +41,8 @@ class TestCase extends \PHPUnit\Framework\TestCase
             return [
                 9 => $fixtures[9]
             ];
+        } else {
+            unset($fixtures[9]);
         }
 
         return $fixtures;
