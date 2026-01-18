@@ -80,23 +80,18 @@ class TestCase extends \PHPUnit\Framework\TestCase
      */
     private static function configureCoverageCache(CodeCoverage $coverage, string $cacheDir): void
     {
-        try {
-            // Use reflection to set the cache directory since there's no public setter
-            $reflection = new \ReflectionClass($coverage);
+        // Use reflection to set the cache directory since there's no public setter
+        $reflection = new \ReflectionClass($coverage);
 
-            // Try common property names used in different versions
-            $propertyNames = ['cacheDirectory', 'cache'];
-            foreach ($propertyNames as $propertyName) {
-                if ($reflection->hasProperty($propertyName)) {
-                    $property = $reflection->getProperty($propertyName);
-                    $property->setAccessible(true);
-                    $property->setValue($coverage, $cacheDir);
-                    return;
-                }
+        // Try common property names used in different versions
+        $propertyNames = ['cacheDirectory', 'cache'];
+        foreach ($propertyNames as $propertyName) {
+            if ($reflection->hasProperty($propertyName)) {
+                $property = $reflection->getProperty($propertyName);
+                $property->setAccessible(true);
+                $property->setValue($coverage, $cacheDir);
+                return;
             }
-        } catch (\Throwable $e) {
-            // Silently fail if we can't set the cache directory
-            // Tests will handle the error if it occurs
         }
     }
 }
