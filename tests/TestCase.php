@@ -8,14 +8,6 @@ use SebastianBergmann\CodeCoverage\CodeCoverage;
 
 class TestCase extends \PHPUnit\Framework\TestCase
 {
-    public function __set($name, $value)
-    {
-        // The tests work locally but not on GitHub Actions... is it a path thing?
-        if(!file_exists(include __DIR__ . '/fixtures/unitphp.9.cov')){
-            throw new RuntimeException('Test unitphp.9.cov file does not exist');
-        }
-    }
-
     /**
      * @return array<int,array{filePath:string, coverage:CodeCoverage}>
      */
