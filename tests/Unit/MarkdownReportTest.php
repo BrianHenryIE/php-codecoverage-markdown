@@ -5,6 +5,9 @@ namespace BrianHenryIE\CodeCoverageMarkdown;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 use SebastianBergmann\CodeCoverage\Report\Thresholds;
 
+/**
+ * @coversDefaultClass \BrianHenryIE\CodeCoverageMarkdown\MarkdownReport
+ */
 class MarkdownReportTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
 {
     protected string $projectRoot;

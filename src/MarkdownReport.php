@@ -24,14 +24,14 @@ class MarkdownReport
     /** @var string $generator */
     private $generator;
     /** @var ?Thresholds $thresholds */
-    private $thresholds;
+    private $thresholds; // @phpstan-ignore class.notFound
 
     /**
      * @param ?Thresholds $thresholds
      */
     public function __construct(
         string $generator = '',
-        $thresholds = null
+        $thresholds = null // @phpstan-ignore class.notFound
     ) {
         $this->generator     = $generator;
         $this->thresholds    = $thresholds ?? (class_exists(Thresholds::class) ? Thresholds::default() : null);

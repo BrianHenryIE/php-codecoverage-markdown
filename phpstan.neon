@@ -2,3 +2,7 @@ parameters:
     level: 8
     paths:
         - src
+
+    # "No error with" will happen on different lines depending on what version `php-code-coverage` is installed.
+    reportUnmatchedIgnoredErrors: false
+

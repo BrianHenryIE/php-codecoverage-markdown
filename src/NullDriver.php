@@ -19,8 +19,8 @@ class NullDriver extends Driver
     {
     }
 
-    public function stop(): RawCodeCoverageData
+    public function stop(): RawCodeCoverageData // @phpstan-ignore class.notFound
     {
-        return RawCodeCoverageData::fromXdebugWithoutPathCoverage([]);
+        return RawCodeCoverageData::fromXdebugWithoutPathCoverage([]); // @phpstan-ignore class.notFound
     }
 }
