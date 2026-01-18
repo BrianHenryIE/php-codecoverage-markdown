@@ -20,19 +20,22 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "BrianHenryIE\\CodeCoverageMarkdown\\Tests\\": "tests"
-    }
+      "BrianHenryIE\\CodeCoverageMarkdown\\": "tests/unit"
+    },
+    "classmap": [
+      "tests"
+    ]
   },
   "require": {
     "php": ">=8.1",
-    "phpunit/php-code-coverage": "^10.1.16|^11.0.12|^12.5.2|*",
-    "phpunit/php-text-template": "^3.0|^4.0|*",
+    "phpunit/php-code-coverage": "^10|^11|^12",
+    "phpunit/php-text-template": "^3.0|^4.0",
     "symfony/console": "^6.5.30|^7.4.1|^8.0.1|*"
   },
   "require-dev": {
     "mockery/mockery": "*",
     "phpstan/phpstan": "*",
-    "phpunit/phpunit": "^10.5.60|^11.5.46|^12.5.4|*",
+    "phpunit/phpunit": "*",
     "squizlabs/php_codesniffer": "*"
   },
   "scripts": {
