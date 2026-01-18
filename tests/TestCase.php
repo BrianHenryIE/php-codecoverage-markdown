@@ -23,7 +23,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
 
         $installedMajorVersion = (int) $installedMajorVersionOutputArray[1];
 
-        if ($installedMajorVersionRegex === 9) {
+        if ($installedMajorVersion === 9) {
             return [
                 9 => [
                     'filePath' => __DIR__ . '/fixtures/unitphp.9.cov',
