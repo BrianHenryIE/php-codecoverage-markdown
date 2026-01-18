@@ -6,6 +6,9 @@ use SebastianBergmann\CodeCoverage\CodeCoverage;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
+/**
+ * @coversDefaultClass MarkdownReportCommand
+ */
 class MarkdownReportCommandTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
 {
     private function isXdebugCoverageEnabled(): bool
