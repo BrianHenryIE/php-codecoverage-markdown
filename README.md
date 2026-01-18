@@ -166,7 +166,7 @@ The Markdown report includes:
 
 ## Requirements
 
-* PHP 8.1 or higher
+* PHP 7.4 or higher
 * Coverage file in PHP format from [phpunit/php-code-coverage](https://github.com/sebastianbergmann/php-code-coverage):`^9|^10|^11|^12`
 
 ## License
