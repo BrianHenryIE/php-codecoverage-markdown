@@ -1,14 +1,14 @@
 <?php
 
-declare(strict_types=1);
-
 /**
- * Directory renderer for markdown coverage reports.
+ * Directory renderer for Markdown coverage reports.
  *
  * Based on phpunit/php-code-coverage HTML directory renderer.
  *
  * @see \SebastianBergmann\CodeCoverage\Report\Html\Directory
  */
+
+declare(strict_types=1);
 
 namespace BrianHenryIE\CodeCoverageMarkdown;
 
@@ -74,7 +74,7 @@ class Directory extends Renderer
     }
 
     /**
-     * Render a directory node as markdown.
+     * Render a directory node as Markdown.
      *
      * @see Renderer::render()
      *
