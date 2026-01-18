@@ -8,7 +8,7 @@ use SebastianBergmann\CodeCoverage\CodeCoverage;
 class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @return array<int,array{coverage:CodeCoverage}>
+     * @return array<int,array{filePath:string, coverage:CodeCoverage}>
      */
     public static function coverageDataProvider(): array
     {
@@ -26,18 +26,22 @@ class TestCase extends \PHPUnit\Framework\TestCase
         if ($installedMajorVersionRegex === 9) {
             return [
                 9 => [
+                    'filePath' => __DIR__ . '/fixtures/unitphp.9.cov',
                     'coverage' => include __DIR__ . '/fixtures/unitphp.9.cov',
                 ],
             ];
         } else {
             return [
                 10 => [
+                    'filePath' => __DIR__ . '/fixtures/unitphp.10.cov',
                     'coverage' => include __DIR__ . '/fixtures/unitphp.10.cov',
                 ],
                 11 => [
+                    'filePath' => __DIR__ . '/fixtures/unitphp.11.cov',
                     'coverage' => include __DIR__ . '/fixtures/unitphp.11.cov',
                 ],
                 12 => [
+                    'filePath' => __DIR__ . '/fixtures/unitphp.12.cov',
                     'coverage' => include __DIR__ . '/fixtures/unitphp.12.cov',
                 ],
             ];

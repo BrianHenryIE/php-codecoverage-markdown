@@ -19,7 +19,7 @@ class CoverageFilterTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testFilterCoverageWithEmptyList(CodeCoverage $coverage): void
+    public function testFilterCoverageWithEmptyList(string $filePath, CodeCoverage $coverage): void
     {
         $result = CoverageFilter::filterCoverage($coverage, []);
 
@@ -30,7 +30,7 @@ class CoverageFilterTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testFilterCoverageWithFullPath(CodeCoverage $coverage): void
+    public function testFilterCoverageWithFullPath(string $filePath, CodeCoverage $coverage): void
     {
         if (!$this->isXdebugCoverageEnabled()) {
             $this->markTestSkipped('Xdebug coverage mode is not enabled');
@@ -59,7 +59,7 @@ class CoverageFilterTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testFilterCoverageWithRelativePath(CodeCoverage $coverage): void
+    public function testFilterCoverageWithRelativePath(string $filePath, CodeCoverage $coverage): void
     {
         if (!$this->isXdebugCoverageEnabled()) {
             $this->markTestSkipped('Xdebug coverage mode is not enabled');
@@ -99,7 +99,7 @@ class CoverageFilterTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testFilterCoverageWithMultipleFiles(CodeCoverage $coverage): void
+    public function testFilterCoverageWithMultipleFiles(string $filePath, CodeCoverage $coverage): void
     {
         if (!$this->isXdebugCoverageEnabled()) {
             $this->markTestSkipped('Xdebug coverage mode is not enabled');
@@ -129,7 +129,7 @@ class CoverageFilterTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testFilterCoverageWithNonexistentFile(CodeCoverage $coverage): void
+    public function testFilterCoverageWithNonexistentFile(string $filePath, CodeCoverage $coverage): void
     {
         if (!$this->isXdebugCoverageEnabled()) {
             $this->markTestSkipped('Xdebug coverage mode is not enabled');
@@ -148,7 +148,7 @@ class CoverageFilterTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testFilterCoveragePreservesBranchCoverage(CodeCoverage $coverage): void
+    public function testFilterCoveragePreservesBranchCoverage(string $filePath, CodeCoverage $coverage): void
     {
         if (!$this->isXdebugCoverageEnabled()) {
             $this->markTestSkipped('Xdebug coverage mode is not enabled');
@@ -172,7 +172,7 @@ class CoverageFilterTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testFilterCoveragePreservesTests(CodeCoverage $coverage): void
+    public function testFilterCoveragePreservesTests(string $filePath, CodeCoverage $coverage): void
     {
         if (!$this->isXdebugCoverageEnabled()) {
             $this->markTestSkipped('Xdebug coverage mode is not enabled');

@@ -52,7 +52,7 @@ class MarkdownReportTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testProcessReturnsString(CodeCoverage $coverage): void
+    public function testProcessReturnsString(string $filePath, CodeCoverage $coverage): void
     {
         $report = new MarkdownReport();
 
@@ -65,7 +65,7 @@ class MarkdownReportTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testProcessWithoutBaseUrl(CodeCoverage $coverage): void
+    public function testProcessWithoutBaseUrl(string $filePath, CodeCoverage $coverage): void
     {
         $report = new MarkdownReport();
         $result = $report->process($coverage, $this->projectRoot, null);
@@ -77,7 +77,7 @@ class MarkdownReportTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testProcessWithBaseUrl(CodeCoverage $coverage): void
+    public function testProcessWithBaseUrl(string $filePath, CodeCoverage $coverage): void
     {
         $report = new MarkdownReport();
         $baseUrl = 'https://github.com/user/repo/blob/main/%s';
@@ -90,7 +90,7 @@ class MarkdownReportTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testProcessWithCoveredFilesList(CodeCoverage $coverage): void
+    public function testProcessWithCoveredFilesList(string $filePath, CodeCoverage $coverage): void
     {
         if (!$this->isXdebugCoverageEnabled()) {
             $this->markTestSkipped('Xdebug coverage mode is not enabled');
@@ -114,7 +114,7 @@ class MarkdownReportTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testProcessOutputContainsMarkdownTable(CodeCoverage $coverage): void
+    public function testProcessOutputContainsMarkdownTable(string $filePath, CodeCoverage $coverage): void
     {
         $report = new MarkdownReport();
         $result = $report->process($coverage, $this->projectRoot);
@@ -126,7 +126,7 @@ class MarkdownReportTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testProcessOutputContainsCoveragePercentages(CodeCoverage $coverage): void
+    public function testProcessOutputContainsCoveragePercentages(string $filePath, CodeCoverage $coverage): void
     {
         $report = new MarkdownReport();
         $result = $report->process($coverage, $this->projectRoot);
@@ -137,7 +137,7 @@ class MarkdownReportTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testProcessOutputContainsFileNames(CodeCoverage $coverage): void
+    public function testProcessOutputContainsFileNames(string $filePath, CodeCoverage $coverage): void
     {
         $data = $coverage->getData();
         $lineCoverage = $data->lineCoverage();
@@ -157,7 +157,7 @@ class MarkdownReportTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testProcessWithEmptyCoveredFilesListShowsAllFiles(CodeCoverage $coverage): void
+    public function testProcessWithEmptyCoveredFilesListShowsAllFiles(string $filePath, CodeCoverage $coverage): void
     {
         $report = new MarkdownReport();
         $resultAll = $report->process($coverage, $this->projectRoot, null, []);
@@ -169,7 +169,7 @@ class MarkdownReportTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testProcessUsesGeneratorInOutput(CodeCoverage $coverage): void
+    public function testProcessUsesGeneratorInOutput(string $filePath, CodeCoverage $coverage): void
     {
         $report = new MarkdownReport();
         $result = $report->process($coverage, $this->projectRoot);
@@ -181,7 +181,7 @@ class MarkdownReportTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
     /**
      * @dataProvider \BrianHenryIE\CodeCoverageMarkdown\TestCase::coverageDataProvider
      */
-    public function testProcessIncludesDateInOutput(CodeCoverage $coverage): void
+    public function testProcessIncludesDateInOutput(string $filePath, CodeCoverage $coverage): void
     {
         $report = new MarkdownReport();
         $result = $report->process($coverage, $this->projectRoot);
