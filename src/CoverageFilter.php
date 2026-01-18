@@ -56,6 +56,10 @@ class CoverageFilter
         $xdebugDriver = new XdebugDriver(
             $filter
         );
+
+        // We may be losing information here.
+        NullDriver::maybeSetCoverageDriver($oldCoverage);
+
         if ($oldCoverage->collectsBranchAndPathCoverage()) {
             $xdebugDriver->enableBranchAndPathCoverage();
         } else {
