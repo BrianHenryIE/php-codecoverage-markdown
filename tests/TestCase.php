@@ -3,6 +3,7 @@
 namespace BrianHenryIE\CodeCoverageMarkdown;
 
 use Composer\InstalledVersions;
+use RuntimeException;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 
 class TestCase extends \PHPUnit\Framework\TestCase
@@ -12,13 +13,14 @@ class TestCase extends \PHPUnit\Framework\TestCase
      */
     public static function coverageDataProvider(): array
     {
-        $installedMajorVersionRegex = preg_match(
-            '/v?(\d+)/',
-            InstalledVersions::getVersion('phpunit/php-code-coverage'),
-            $installedMajorVersionOutputArray
-        );
-        if (!$installedMajorVersionRegex) {
-            return [];
+        if (
+            !preg_match(
+                '/v?(\d+)/',
+                InstalledVersions::getVersion('phpunit/php-code-coverage'),
+                $installedMajorVersionOutputArray
+            )
+        ) {
+            throw new RuntimeException('Could not determine php-code-coverage version');
         }
 
         $installedMajorVersion = (int) $installedMajorVersionOutputArray[1];
