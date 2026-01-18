@@ -16,7 +16,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
         if (
             !preg_match(
                 '/v?(\d+)/',
-                InstalledVersions::getVersion('phpunit/php-code-coverage'),
+                InstalledVersions::getVersion('phpunit/php-code-coverage') ?? '',
                 $installedMajorVersionOutputArray
             )
         ) {
