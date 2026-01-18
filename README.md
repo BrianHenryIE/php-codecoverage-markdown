@@ -1,5 +1,7 @@
 [![PHP 8.1](https://img.shields.io/badge/PHP-8.1-8892BF.svg?logo=php)](https://php.net)
 
+> ⚠️ Tests pass locally but not in GitHub Actions. Please test and give feedback, don't assume this is working 100%.
+
 # PHP Code Coverage Markdown Report Printer
 
 Generate Markdown coverage reports from PHPUnit code coverage data, perfect for GitHub PR comments.
@@ -12,11 +14,8 @@ Generate Markdown coverage reports from PHPUnit code coverage data, perfect for 
 * 🔗 Link files to GitHub blob URLs
 * 📝 Filter reports to specific files
 * 🎨 Visual coverage bars using emojis (🟩🟧🟥⬜)
-* 🚀 GitHub Actions integration
 
 ## Installation
-
-Via Composer:
 
 ```bash
 composer require --dev brianhenryie/php-codecoverage-markdown
