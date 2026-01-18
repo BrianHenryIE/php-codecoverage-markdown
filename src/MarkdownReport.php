@@ -23,15 +23,18 @@ class MarkdownReport
     private $templatePath;
     /** @var string $generator */
     private $generator;
-    /** @var Thresholds $thresholds */
+    /** @var ?Thresholds $thresholds */
     private $thresholds;
 
+    /**
+     * @param ?Thresholds $thresholds
+     */
     public function __construct(
         string $generator = '',
-        ?Thresholds $thresholds = null
+        $thresholds = null
     ) {
         $this->generator     = $generator;
-        $this->thresholds    = $thresholds ?? Thresholds::default();
+        $this->thresholds    = $thresholds ?? (class_exists(Thresholds::class) ? Thresholds::default() : null);
         $this->templatePath  = __DIR__ . '/MarkdownTemplate/';
     }
 

@@ -43,7 +43,7 @@ class MarkdownReportTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
 
     public function testConstructWithCustomThresholds(): void
     {
-        $thresholds = Thresholds::from(60, 80);
+        $thresholds = class_exists(Thresholds::class) ? Thresholds::from(60, 80) : null;
         $report = new MarkdownReport('', $thresholds);
 
         $this->assertInstanceOf(MarkdownReport::class, $report);

@@ -33,7 +33,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -55,7 +55,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -80,7 +80,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -105,7 +105,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -130,7 +130,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -156,7 +156,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -180,7 +180,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -204,7 +204,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -230,7 +230,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             $date,
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -254,7 +254,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -283,7 +283,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
@@ -314,7 +314,7 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->templatePath,
             'Test Generator',
             date('D, M j, Y, G:i:s T'),
-            Thresholds::default(),
+            class_exists(Thresholds::class) ? Thresholds::default() : null,
             false
         );
 
