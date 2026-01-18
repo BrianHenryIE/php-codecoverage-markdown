@@ -76,14 +76,17 @@ file_put_contents('coverage-report.md', $markdown);
 Use this to post coverage reports as PR comments:
 
 ```yaml
-name: Code Coverage Report Comment
+name: PHP Tests with Code Coverage Report Comment
 
 on:
   pull_request:
     types: [opened, synchronize]
 
+env:
+  COVERAGE_PHP_VERSION: '8.4'
+
 jobs:
-  coverage:
+  php-tests:
     runs-on: ubuntu-latest
 
     permissions:
@@ -100,21 +103,21 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          coverage: xdebug
+          coverage: ${{ matrix.php == env.COVERAGE_PHP_VERSION && 'xdebug' || 'none' }}
 
       - name: Install dependencies
         run: composer install
 
       - name: Run tests with coverage
-        if: ${{ matrix.php == '8.1' }} # We only need the coverage data once
+        if: ${{ matrix.php == env.COVERAGE_PHP_VERSION }} # We only need the coverage data once
         run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-php coverage.cov
 
       - name: Run tests without coverage
-        if: ${{ matrix.php != '8.1' }}
+        if: ${{ matrix.php != env.COVERAGE_PHP_VERSION }}
         run: vendor/bin/phpunit
 
       - name: Get changed files
-        if: ${{ matrix.php == '8.1' }} # We only need it once
+        if: ${{ matrix.php == env.COVERAGE_PHP_VERSION }} # We only need it once
         id: changed-files
         uses: tj-actions/changed-files@v47
         with:
@@ -122,7 +125,7 @@ jobs:
           files: '**/**.php'
 
       - name: Generate markdown report
-        if: ${{ matrix.php == '8.1' }} # We only need it once
+        if: ${{ matrix.php == env.COVERAGE_PHP_VERSION }} # We only need it once
         run: |
           vendor/bin/php-codecoverage-markdown \
             --input-file coverage.cov \
@@ -132,7 +135,7 @@ jobs:
 
       - name: Comment on PR
         uses: mshick/add-pr-comment@v2
-        if: ${{ matrix.php == '8.1' }} # We only need it added once
+        if: ${{ matrix.php == env.COVERAGE_PHP_VERSION }} # We only need it added once
         with:
           message-id: coverage-report # Causes it to update the same PR comment each time.
           message-path: coverage-report.md
