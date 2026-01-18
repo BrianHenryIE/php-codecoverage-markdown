@@ -1,12 +1,14 @@
-# PHP Code Coverage Markdown
-
 [![PHP 8.1](https://img.shields.io/badge/PHP-8.1-8892BF.svg?logo=php)](https://php.net)
 
-Generate markdown coverage reports from PHPUnit code coverage data, perfect for GitHub PR comments.
+# PHP Code Coverage Markdown Report Printer
+
+Generate Markdown coverage reports from PHPUnit code coverage data, perfect for GitHub PR comments.
+
+[![PHPUnit ](../php-codecoverage-markdown/.github/example-github-pr-comment.png)](https://github.com/BrianHenryIE/strauss/pull/139#issuecomment-2614192979)
 
 ## Features
 
-* 📊 Convert PHPUnit `.cov` coverage files to markdown
+* 📊 Convert PHPUnit `.cov` coverage files to Markdown
 * 🔗 Link files to GitHub blob URLs
 * 📝 Filter reports to specific files
 * 🎨 Visual coverage bars using emojis (🟩🟧🟥⬜)
@@ -20,17 +22,11 @@ Via Composer:
 composer require --dev brianhenryie/php-codecoverage-markdown
 ```
 
-Or via Phive:
-
-```bash
-phive install brianhenryie/php-codecoverage-markdown
-```
-
 ## Usage
 
 ### CLI
 
-Generate a markdown report from a PHPUnit coverage file:
+Generate a Markdown report from a PHPUnit coverage file:
 
 ```bash
 php-codecoverage-markdown \
@@ -78,10 +74,10 @@ file_put_contents('coverage-report.md', $markdown);
 
 ## GitHub Actions Example
 
-Use this tool to post coverage reports as PR comments:
+Use this to post coverage reports as PR comments:
 
 ```yaml
-name: Code Coverage Report
+name: Code Coverage Report Comment
 
 on:
   pull_request:
@@ -93,6 +89,10 @@ jobs:
 
     permissions:
       pull-requests: write
+
+    strategy:
+      matrix:
+        php: [ '8.1', '8.2', '8.3', '8.4', '8.5' ]
 
     steps:
       - uses: actions/checkout@v4
@@ -109,17 +109,29 @@ jobs:
       - name: Run tests with coverage
         run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-php coverage.cov
 
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v47
+        with:
+          separator: ','
+          files: '**/**.php'
+
       - name: Generate markdown report
+        if: ${{ matrix.php == '8.1' }} # We only need it added once
         run: |
           vendor/bin/php-codecoverage-markdown \
             --input-file coverage.cov \
+            --covered-files=${{ steps.changed-files.outputs.all_changed_files }} \
             --base-url "https://github.com/${{ github.repository }}/blob/${{ github.event.pull_request.head.sha }}/%s" \
             --output-file coverage-report.md
 
       - name: Comment on PR
         uses: mshick/add-pr-comment@v2
+        if: ${{ matrix.php == '8.1' }} # We only need it added once
         with:
+          message-id: coverage-report
           message-path: coverage-report.md
+        continue-on-error: true # When a PR is opened by a non-member, there are no write permissions (and no access to secrets), so this step will always fail.
 ```
 
 ## Options
@@ -143,42 +155,12 @@ The markdown report includes:
   * Classes coverage
   * Clickable file links (when `--base-url` is provided)
 
-Example output:
-
-```markdown
-| File | Lines | Methods | Classes |
-|------|-------|---------|---------|
-| **Total** | 85.5% 🟩🟩🟩🟩🟩🟩🟩🟩⬜⬜ | 75% | 100% |
-| [src/MyClass.php](https://github.com/user/repo/blob/main/src/MyClass.php) | 90% 🟩🟩🟩🟩🟩🟩🟩🟩🟩⬜ | 80% | 100% |
-```
 
 ## Requirements
 
 * PHP 8.1 or higher
-* phpunit/php-code-coverage
-* sebastian/template
-* symfony/console
-
-## Development
-
-```bash
-# Install dependencies
-composer install
-
-# Run tests
-composer test
-
-# Run code quality checks
-composer cs
-
-# Run static analysis
-composer analyze
-```
+* [phpunit/php-code-coverage](https://github.com/sebastianbergmann/php-code-coverage):`^10|^11|^12`
 
 ## License
 
 MIT
-
-## Author
-
-[BrianHenryIE](https://github.com/BrianHenryIE)
