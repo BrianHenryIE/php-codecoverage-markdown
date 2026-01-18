@@ -61,7 +61,7 @@ class MarkdownReport
 
         $date   = date('D, M j, Y, G:i:s T');
 
-        NullDriver::maybeSetCoverageDriver($coverage);
+        SetNullDriver::maybeSetCoverageDriver($coverage);
 
         $directory = new Directory(
             $projectRoot,

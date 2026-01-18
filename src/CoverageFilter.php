@@ -58,7 +58,7 @@ class CoverageFilter
         );
 
         // We may be losing information here.
-        NullDriver::maybeSetCoverageDriver($oldCoverage);
+        SetNullDriver::maybeSetCoverageDriver($oldCoverage);
 
         if ($oldCoverage->collectsBranchAndPathCoverage()) {
             $xdebugDriver->enableBranchAndPathCoverage();

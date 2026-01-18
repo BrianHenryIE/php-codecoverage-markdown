@@ -155,7 +155,7 @@ class CoverageFilterTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
             $this->markTestSkipped('Xdebug coverage mode is not enabled');
         }
 
-        NullDriver::maybeSetCoverageDriver($coverage);
+        SetNullDriver::maybeSetCoverageDriver($coverage);
 
         $hasBranchCoverage = $coverage->collectsBranchAndPathCoverage();
 
