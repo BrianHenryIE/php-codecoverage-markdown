@@ -41,7 +41,7 @@ GitHub Actions permissions limit new comments to users with write access to the 
 ## Installation
 
 ```bash
-composer require --dev brianhenryie/php-codecoverage-markdown
+composer require --dev brianhenryie/php-codecoverage-markdown:"^0.1|^1.0"
 ```
 
 ## Usage
