@@ -21,11 +21,11 @@ The Markdown report includes:
   * Visual coverage bar
   * Methods coverage
   * Classes coverage
-  * Clickable source/HTML report links (when `--base-url` is provided) 
+  * Clickable source/HTML report links, set with `--base-url` 
 
 ### Options
 
-Primary input: coverage file in PHP format from [phpunit/php-code-coverage](https://github.com/sebastianbergmann/php-code-coverage):`^9|^10|^11|^12`
+Primary input: coverage file in PHP format from [phpunit/php-code-coverage](https://github.com/sebastianbergmann/php-code-coverage):`^9|^10|^11|^12`, i.e. `phpunit --coverage-php coverage.cov`.
 
 | Option | Short | Description                                                             |
 |--------|-------|-------------------------------------------------------------------------|
@@ -74,26 +74,6 @@ php-codecoverage-markdown \
   --output-file coverage-report.md
 ```
 
-### Programmatic Usage
-
-```php
-use BrianHenryIE\CodeCoverageMarkdown\MarkdownReport;
-use SebastianBergmann\CodeCoverage\CodeCoverage;
-
-/** @var CodeCoverage $coverage */
-$coverage = include 'path/to/coverage.cov';
-
-$report = new MarkdownReport();
-$markdown = $report->process(
-    coverage: $coverage,
-    projectRoot: '/path/to/project/',
-    baseUrl: 'https://github.com/user/repo/blob/main/%s',
-    coveredFilesList: ['src/MyClass.php']
-);
-
-file_put_contents('coverage-report.md', $markdown);
-```
-
 ### GitHub Actions
 
 Use this to post coverage reports as PR comments:
@@ -140,7 +120,7 @@ jobs:
         run: vendor/bin/phpunit
 
       - name: Get changed files
-        if: ${{ matrix.php == env.COVERAGE_PHP_VERSION }} # We only need it once
+        if: ${{ matrix.php == env.COVERAGE_PHP_VERSION }}
         id: changed-files
         uses: tj-actions/changed-files@v47
         with:
@@ -148,7 +128,7 @@ jobs:
           files: '**/**.php'
 
       - name: Generate markdown report
-        if: ${{ matrix.php == env.COVERAGE_PHP_VERSION }} # We only need it once
+        if: ${{ matrix.php == env.COVERAGE_PHP_VERSION }}
         run: |
           vendor/bin/php-codecoverage-markdown \
             --input-file coverage.cov \
@@ -158,11 +138,31 @@ jobs:
 
       - name: Comment on PR
         uses: mshick/add-pr-comment@v2
-        if: ${{ matrix.php == env.COVERAGE_PHP_VERSION }} # We only need it added once
+        if: ${{ matrix.php == env.COVERAGE_PHP_VERSION }}
         with:
           message-id: coverage-report # Causes it to update the same PR comment each time.
           message-path: coverage-report.md
         continue-on-error: true # When a PR is opened by a non-member, there are no write permissions (and no access to secrets), so this step will always fail.
+```
+
+### Programmatic
+
+```php
+use BrianHenryIE\CodeCoverageMarkdown\MarkdownReport;
+use SebastianBergmann\CodeCoverage\CodeCoverage;
+
+/** @var CodeCoverage $coverage */
+$coverage = include 'path/to/coverage.cov';
+
+$report = new MarkdownReport();
+$markdown = $report->process(
+    coverage: $coverage,
+    projectRoot: '/path/to/project/',
+    baseUrl: 'https://github.com/user/repo/blob/main/%s',
+    coveredFilesList: ['src/MyClass.php']
+);
+
+file_put_contents('coverage-report.md', $markdown);
 ```
 
 ## Status
