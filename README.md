@@ -27,12 +27,12 @@ The Markdown report includes:
 
 Primary input: coverage file in PHP format from [phpunit/php-code-coverage](https://github.com/sebastianbergmann/php-code-coverage):`^9|^10|^11|^12`, i.e. `phpunit --coverage-php coveragephp.cov`.
 
-| Option | Short | Description                                                             |
-|--------|-------|-------------------------------------------------------------------------|
-| `--input-file` | `-i` | Path to PHPUnit `.cov` coverage file (required)                         |
-| `--output-file` | `-o` | Output file path (default: stdout)                                      |
-| `--base-url` | `-b` | Base URL for source file links (use `%s` as placeholder)                |
-| `--covered-files` | `-c` | Comma-separated list of files to include (i.e. the files in the PR) |
+| Option | Short | Description                                                            |
+|--------|-------|------------------------------------------------------------------------|
+| `--input-file` | `-i` | Path to PHPUnit `.cov` coverage file (required)                        |
+| `--output-file` | `-o` | Output file path (default: stdout)                                     |
+| `--base-url` | `-b` | Base URL for source file links (use `%s` as relative path placeholder) |
+| `--covered-files` | `-c` | Comma-separated list of files to include (i.e. the files in the PR)    |
 
 ### Limitation
 
