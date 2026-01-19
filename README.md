@@ -167,7 +167,8 @@ file_put_contents('coverage-report.md', $markdown);
 
 ## Status
 
-Ironically, this project's tests pass locally but fail in GitHub Actions! I'll tag 1.0 when I figure that out.
+* Ironically, this project's tests pass locally but fail in GitHub Actions! I'll tag 1.0 when I figure that out
+* This should be spun into its own GitHub Action so it is not a dependency in a project
 
 ## See Also
 
