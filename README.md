@@ -2,7 +2,7 @@
 
 # PHP Code Coverage Markdown Report Printer
 
-Generate Markdown coverage reports from PHPUnit code coverage data, perfect for GitHub PR comments.
+Generate Markdown coverage reports from PHPUnit code coverage data, for GitHub PR comments.
 
 [![PHPUnit ](.github/example-github-pr-comment.png)](https://github.com/BrianHenryIE/strauss/pull/139#issuecomment-2614192979)
 
