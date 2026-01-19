@@ -25,7 +25,7 @@ The Markdown report includes:
 
 ### Options
 
-Primary input: coverage file in PHP format from [phpunit/php-code-coverage](https://github.com/sebastianbergmann/php-code-coverage):`^9|^10|^11|^12`, i.e. `phpunit --coverage-php coveragecoveragephp.cov`.
+Primary input: coverage file in PHP format from [phpunit/php-code-coverage](https://github.com/sebastianbergmann/php-code-coverage):`^9|^10|^11|^12`, i.e. `phpunit --coverage-php coveragephp.cov`.
 
 | Option | Short | Description                                                             |
 |--------|-------|-------------------------------------------------------------------------|
@@ -113,7 +113,7 @@ jobs:
 
       - name: Run tests with coverage
         if: ${{ matrix.php == env.COVERAGE_PHP_VERSION }} # We only need the coverage data once
-        run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-php coveragecoveragephp.cov
+        run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-php coveragephp.cov
 
       - name: Run tests without coverage
         if: ${{ matrix.php != env.COVERAGE_PHP_VERSION }}
@@ -131,7 +131,7 @@ jobs:
         if: ${{ matrix.php == env.COVERAGE_PHP_VERSION }}
         run: |
           vendor/bin/php-codecoverage-markdown \
-            --input-file coveragecoveragephp.cov \
+            --input-file coveragephp.cov \
             --covered-files=${{ steps.changed-files.outputs.all_changed_files }} \
             --base-url "https://github.com/${{ github.repository }}/blob/${{ github.event.pull_request.head.sha }}/%s" \
             --output-file coverage-report.md
@@ -152,7 +152,7 @@ use BrianHenryIE\CodeCoverageMarkdown\MarkdownReport;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 
 /** @var CodeCoverage $coverage */
-$coverage = include 'path/to/coveragecoveragephp.cov';
+$coverage = include 'path/to/coveragephp.cov';
 
 $report = new MarkdownReport();
 $markdown = $report->process(
