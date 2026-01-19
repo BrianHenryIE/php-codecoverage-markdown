@@ -1,7 +1,5 @@
 [![PHP 7.4](https://img.shields.io/badge/PHP-8.1-8892BF.svg?logo=php)](https://php.net)
 
-> ⚠️ Tests pass locally but not in GitHub Actions. Please test and give feedback, don't assume this is working 100%.
-
 # PHP Code Coverage Markdown Report Printer
 
 Generate Markdown coverage reports from PHPUnit code coverage data, perfect for GitHub PR comments.
@@ -14,6 +12,31 @@ Generate Markdown coverage reports from PHPUnit code coverage data, perfect for 
 * 🔗 Link files to GitHub blob URLs
 * 📝 Filter reports to specific files
 * 🎨 Visual coverage bars using emojis (🟩🟧🟥⬜)
+
+The Markdown report includes:
+
+* Total coverage summary
+* Per-file coverage details with:
+  * Lines coverage percentage
+  * Visual coverage bar
+  * Methods coverage
+  * Classes coverage
+  * Clickable source/HTML report links (when `--base-url` is provided) 
+
+### Options
+
+Primary input: coverage file in PHP format from [phpunit/php-code-coverage](https://github.com/sebastianbergmann/php-code-coverage):`^9|^10|^11|^12`
+
+| Option | Short | Description                                                             |
+|--------|-------|-------------------------------------------------------------------------|
+| `--input-file` | `-i` | Path to PHPUnit `.cov` coverage file (required)                         |
+| `--output-file` | `-o` | Output file path (default: stdout)                                      |
+| `--base-url` | `-b` | Base URL for source file links (use `%s` as placeholder)                |
+| `--covered-files` | `-c` | Comma-separated list of files to include (i.e. the files in the PR) |
+
+### Limitation
+
+GitHub Actions permissions limit new comments to users with write access to the repo. I.e. this works great for teams using private repos and works ok for PRs on public repos. There is a workaround at [mshick/add-pr-comment-proxy](https://github.com/mshick/add-pr-comment-proxy) which runs on Google Cloud.
 
 ## Installation
 
@@ -71,7 +94,7 @@ $markdown = $report->process(
 file_put_contents('coverage-report.md', $markdown);
 ```
 
-## GitHub Actions Example
+### GitHub Actions
 
 Use this to post coverage reports as PR comments:
 
@@ -142,33 +165,11 @@ jobs:
         continue-on-error: true # When a PR is opened by a non-member, there are no write permissions (and no access to secrets), so this step will always fail.
 ```
 
-## Options
+## Status
 
-| Option | Short | Description |
-|--------|-------|-------------|
-| `--input-file` | `-i` | Path to PHPUnit `.cov` coverage file (required) |
-| `--output-file` | `-o` | Output file path (default: stdout) |
-| `--base-url` | `-b` | Base URL for source file links (use `%s` as placeholder) |
-| `--covered-files` | `-c` | Comma-separated list of files to include |
+Ironically, this project's tests pass locally but fail in GitHub Actions! I'll tag 1.0 when I figure that out.
 
-## Output Format
+## See Also
 
-The Markdown report includes:
-
-* Total coverage summary
-* Per-file coverage details with:
-  * Lines coverage percentage
-  * Visual coverage bar
-  * Methods coverage
-  * Classes coverage
-  * Clickable file links (when `--base-url` is provided)
-
-
-## Requirements
-
-* PHP 7.4 or higher
-* Coverage file in PHP format from [phpunit/php-code-coverage](https://github.com/sebastianbergmann/php-code-coverage):`^9|^10|^11|^12`
-
-## License
-
-MIT
+* [mshick/add-pr-comment-proxy](https://github.com/mshick/add-pr-comment-proxy)
+* [BrianHenryIE/php-diff-test](https://github.com/BrianHenryIE/php-diff-test)
