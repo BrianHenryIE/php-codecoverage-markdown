@@ -1,4 +1,4 @@
-[![PHP 7.4](https://img.shields.io/badge/PHP-8.1-8892BF.svg?logo=php)](https://php.net)
+[![PHP 7.4](https://img.shields.io/badge/PHP-7.4-8892BF.svg?logo=php)](https://php.net)
 
 # PHP Code Coverage Markdown Report Printer
 
@@ -97,7 +97,7 @@ jobs:
 
     strategy:
       matrix:
-        php: [ '8.1', '8.2', '8.3', '8.4', '8.5' ]
+        php: [ '8.2', '8.3', '8.4', '8.5' ]
 
     steps:
       - uses: actions/checkout@v4
