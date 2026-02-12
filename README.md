@@ -167,7 +167,6 @@ file_put_contents('coverage-report.md', $markdown);
 
 ## Status
 
-* Planned breaking change (~0.2): default output should only be the table; documentation can show how easiest to add headers, other info, etc. 
 * Ironically, this project's tests pass locally but fail in GitHub Actions! I'll tag 1.0 when I figure that out
 * This should be spun into its own GitHub Action so it is not a dependency in a project
 
