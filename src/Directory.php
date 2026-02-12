@@ -24,8 +24,6 @@ use function str_repeat;
 
 class Directory extends Renderer
 {
-    /** @var string $projectRoot */
-    protected $projectRoot;
     /** @var string|null $baseUrl */
     protected $baseUrl;
     /** @var string $basePath */
@@ -35,7 +33,6 @@ class Directory extends Renderer
      * @param ?Thresholds $thresholds
      */
     public function __construct(
-        string $projectRoot, // Path to remove from the beginning of each path before prefixing the base URL
         ?string $baseUrl, // The URL to prefix to each path. Should contain a `%s` placeholder for the path.
         string $basePath, // The directory to remove from the beginning of each path for printing
         string $templatePath,
@@ -44,7 +41,6 @@ class Directory extends Renderer
         $thresholds, // @phpstan-ignore class.notFound
         bool $hasBranchCoverage
     ) {
-        $this->projectRoot = $projectRoot;
         $this->baseUrl = $baseUrl;
         $this->basePath = $basePath;
 
@@ -186,7 +182,7 @@ class Directory extends Renderer
                     $data['name'] = sprintf(
                         '[%s](%s)',
                         str_replace($this->basePath, '', $node->pathAsString()),
-                        sprintf($this->baseUrl, str_replace($this->projectRoot, '', $node->pathAsString())),
+                        sprintf($this->baseUrl, str_replace($this->basePath, '', $node->pathAsString())),
                     );
                 } else {
                     $data['name'] = str_replace($this->basePath, '', $node->pathAsString());

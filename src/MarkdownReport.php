@@ -42,14 +42,12 @@ class MarkdownReport
      * Generate a markdown report from a CodeCoverage object.
      *
      * @param CodeCoverage $coverage The coverage data to report on
-     * @param string $projectRoot The file path string to remove before prepending the base URL
      * @param string|null $baseUrl The URL to prefix to each path (optional)
      * @param string[] $coveredFilesList List of files to include in the report (empty for all files)
      * @return string The markdown report content
      */
     public function process(
         CodeCoverage $coverage,
-        string $projectRoot,
         ?string $baseUrl = null,
         array $coveredFilesList = []
     ): string {
@@ -64,7 +62,6 @@ class MarkdownReport
         SetNullDriver::maybeSetCoverageDriver($coverage);
 
         $directory = new Directory(
-            $projectRoot,
             $baseUrl,
             $basePath,
             $this->templatePath,

@@ -7,14 +7,12 @@ use SebastianBergmann\CodeCoverage\Report\Thresholds;
 
 class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
 {
-    protected string $projectRoot;
     protected string $templatePath;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->projectRoot = dirname(__DIR__, 2) . '/';
         $this->templatePath = dirname(__DIR__, 2) . '/src/MarkdownTemplate/';
     }
 
@@ -27,7 +25,6 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
         $basePath = $report->pathAsString() . '/';
 
         $directory = new Directory(
-            $this->projectRoot,
             null,
             $basePath,
             $this->templatePath,
@@ -49,7 +46,6 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
         $basePath = $report->pathAsString() . '/';
 
         $directory = new Directory(
-            $this->projectRoot,
             null,
             $basePath,
             $this->templatePath,
@@ -74,7 +70,6 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
         $basePath = $report->pathAsString() . '/';
 
         $directory = new Directory(
-            $this->projectRoot,
             null,
             $basePath,
             $this->templatePath,
@@ -99,7 +94,6 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
         $basePath = $report->pathAsString() . '/';
 
         $directory = new Directory(
-            $this->projectRoot,
             null,
             $basePath,
             $this->templatePath,
@@ -124,7 +118,6 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
         $baseUrl = 'https://github.com/user/repo/blob/main/%s';
 
         $directory = new Directory(
-            $this->projectRoot,
             $baseUrl,
             $basePath,
             $this->templatePath,
@@ -150,7 +143,6 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
         $basePath = $report->pathAsString() . '/';
 
         $directory = new Directory(
-            $this->projectRoot,
             null,
             $basePath,
             $this->templatePath,
@@ -174,7 +166,6 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
         $basePath = $report->pathAsString() . '/';
 
         $directory = new Directory(
-            $this->projectRoot,
             null,
             $basePath,
             $this->templatePath,
@@ -198,7 +189,6 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
         $basePath = $report->pathAsString() . '/';
 
         $directory = new Directory(
-            $this->projectRoot,
             null,
             $basePath,
             $this->templatePath,
@@ -224,7 +214,6 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
         $date = 'Mon, Jan 17, 2026, 12:00:00 PST';
 
         $directory = new Directory(
-            $this->projectRoot,
             null,
             $basePath,
             $this->templatePath,
@@ -248,7 +237,6 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
         $basePath = $report->pathAsString() . '/';
 
         $directory = new Directory(
-            $this->projectRoot,
             null,
             $basePath,
             $this->templatePath,
@@ -277,7 +265,6 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
         $basePath = $report->pathAsString() . '/';
 
         $directory = new Directory(
-            $this->projectRoot,
             null,
             $basePath,
             $this->templatePath,
@@ -308,7 +295,6 @@ class DirectoryTest extends \BrianHenryIE\CodeCoverageMarkdown\TestCase
         $basePath = $report->pathAsString() . '/';
 
         $directory = new Directory(
-            $this->projectRoot,
             null,
             $basePath,
             $this->templatePath,

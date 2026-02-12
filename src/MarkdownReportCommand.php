@@ -148,8 +148,7 @@ class MarkdownReportCommand extends Command
         }
 
         try {
-            $projectRoot = getcwd() . '/';
-            $result = $this->markdownReport->process($coverage, $projectRoot, $baseUrl, $coveredFilesList);
+            $result = $this->markdownReport->process($coverage, $baseUrl, $coveredFilesList);
 
             if ($outputFile) {
                 if (file_put_contents($outputFile, $result) === false) {
