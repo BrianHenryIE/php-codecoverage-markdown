@@ -143,8 +143,13 @@ class MarkdownReportCommand extends Command
         // At this point, we don't care that the files exist or not. We will check str_ends_with() to filter later.
         $coveredFilesList = array_map('trim', explode(',', $coveredFilesList));
 
-        if ($baseUrl && !str_contains($baseUrl, '%s')) {
-            $baseUrl = $baseUrl . '%s';
+        if (!is_null($baseUrl)) {
+            // Ensure the URL has a trailing slash.
+            $baseUrl = rtrim($baseUrl, '/') . '/';
+            // Add the string replacement specifier.
+            if (!str_contains($baseUrl, '%s')) {
+                $baseUrl = $baseUrl . '%s';
+            }
         }
 
         try {
