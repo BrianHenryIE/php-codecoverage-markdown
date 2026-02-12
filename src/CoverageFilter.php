@@ -57,7 +57,7 @@ class CoverageFilter
         /** @var XdebugDriver|Xdebug3Driver $xdebugDriver */ // @phpstan-ignore class.notFound
         $xdebugDriver = class_exists(XdebugDriver::class)
             ? new XdebugDriver($filter)
-            : new Xdebug3Driver($filter);
+            : new Xdebug3Driver($filter); // @phpstan-ignore class.notFound
 
         // We may be losing information here.
         SetNullDriver::maybeSetCoverageDriver($oldCoverage);
